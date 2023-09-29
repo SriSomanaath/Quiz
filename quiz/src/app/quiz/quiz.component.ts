@@ -6,9 +6,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./quiz.component.css']
 })
 export class QuizComponent {
-
-
-constructor(){}
+  questionElement:any;
+  answerButton:any;
+  nextButton:any;
+  currentQuestionIndex=0;
+  score=0;
+  
+constructor(){
+this.questionElement = document.getElementById("question");
+this.answerButton = document.getElementById("answer-buttons");
+this.nextButton = document.getElementById("next-btn");
+}
 
   questions!:[
     {
@@ -50,4 +58,19 @@ constructor(){}
 
 ];
   
+    startQuiz(){
+      this.currentQuestionIndex = 0;
+      this.score = 0;
+      this.nextButton.innerHTML = "Next";
+      this.showQuestion();
+    }
+
+    showQuestion(){
+      let currentQuestion = this.questions[this.currentQuestionIndex];
+      let questionNo = this.currentQuestionIndex + 1;
+      this.questionElement.innerHTML = questionNo + ". " + currentQuestion.
+      question;
+    }
+
+
 }
