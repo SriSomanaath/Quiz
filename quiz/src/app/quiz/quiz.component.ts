@@ -1,21 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit , ViewEncapsulation} from '@angular/core';
 
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
-  styleUrls: ['./quiz.component.css']
+  styleUrls: ['./quiz.component.css'],
+  encapsulation: ViewEncapsulation.None 
 })
 
-export class QuizComponent implements OnInit{
+export class QuizComponent implements AfterViewInit {
   questionElement:any;
-  answerButton:any;
+  answerButtons:any;
   nextButton:any;
   currentQuestionIndex=0;
   score=0;
   questions: any[] = [];
   
 
- ngOnInit():void{
+  ngAfterViewInit():void{
     this.startQuiz();
   }
 
@@ -63,7 +64,7 @@ constructor(){
     ];
       this.questionElement = document.getElementById("question");
       console.log("this...",this.questionElement )
-      this.answerButton = document.getElementById("answer-buttons");
+      this.answerButtons = document.getElementById("answer-buttons");
       this.nextButton = document.getElementById("next-btn");
       this.currentQuestionIndex = 0;
       this.score = 0;
@@ -72,6 +73,7 @@ constructor(){
     }
 
     showQuestion(){
+      this.resetQuestion();
       let currentQuestion = this.questions[this.currentQuestionIndex];
       let questionNo = this.currentQuestionIndex + 1;
       this.questionElement.innerHTML = questionNo + ". " + currentQuestion.
@@ -80,8 +82,30 @@ constructor(){
         const button = document.createElement("button");
         button.innerHTML = answer.text;
         button.classList.add("btn");
-        this.answerButton.appendChild(button);
+        this.answerButtons.appendChild(button);
+        // if(answer.correct){
+        //   button.dataset.correct = answer.correct;
+        // }
+        // button.addEventListener("click", this.selectAnswer());
       })
     }
+
+    resetQuestion(){
+      this.nextButton.style.display = "none";
+      while(this.answerButtons.firstChild) {
+        this.answerButtons.removeChild(this.answerButtons.firstChild);
+      }
+    }
+
+    // selectAnswer(e){
+    //   const selectBtn = e.target;
+    //   const isCorrect = selectBtn.dataset.correct == "true";
+    //   if(isCorrect){
+    //     selectBtn.classList.add("correct");
+    //   }
+    //   else{
+    //     selectBtn.classList.add("incorrect");
+    //   }
+    // }
 
 }
