@@ -107,6 +107,13 @@ constructor(){
       else{
         selectBtn.classList.add("incorrect");
       }
+      Array.from(this.answerButtons.children as HTMLButtonElement[]).forEach(button => {
+        if (button.dataset['correct'] === "true") {
+          button.classList.add("correct");
+        }
+        button.disabled = true;
+      });    
+      this.nextButton.style.display = "block";
     }
-
+    
 }
