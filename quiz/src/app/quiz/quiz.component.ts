@@ -83,10 +83,10 @@ constructor(){
         button.innerHTML = answer.text;
         button.classList.add("btn");
         this.answerButtons.appendChild(button);
-        // if(answer.correct){
-        //   button.dataset.correct = answer.correct;
-        // }
-        // button.addEventListener("click", this.selectAnswer());
+        if(answer['correct']){
+          button.dataset['correct'] = answer['correct'];
+        }
+        button.addEventListener("click", this.selectAnswer.bind(this));
       })
     }
 
@@ -97,15 +97,16 @@ constructor(){
       }
     }
 
-    // selectAnswer(e){
-    //   const selectBtn = e.target;
-    //   const isCorrect = selectBtn.dataset.correct == "true";
-    //   if(isCorrect){
-    //     selectBtn.classList.add("correct");
-    //   }
-    //   else{
-    //     selectBtn.classList.add("incorrect");
-    //   }
-    // }
+    selectAnswer(e:any){
+      const selectBtn = e.target;
+      console.log("thisssssssssss", selectBtn)
+      const isCorrect = selectBtn.dataset.correct == "true";
+      if(isCorrect){
+        selectBtn.classList.add("correct");
+      }
+      else{
+        selectBtn.classList.add("incorrect");
+      }
+    }
 
 }
